@@ -1,9 +1,4 @@
-var mysql = require('mysql');
-
-var connection = mysql.createConnection({
-  database:'deepfryd',
-  user: "root"
-});
+const connection = require('./config.js');
 
 connection.connect(function(err) {
   if (err) throw err;
