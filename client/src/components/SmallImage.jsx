@@ -4,6 +4,7 @@ import styled from 'styled-components';
 //
 
 const Box = styled.div`
+    cursor:pointer;
     height: 32px;
     width: 32px;
     border: ${({id, displayImageId }) => id.toString() === displayImageId.toString() ? '2px solid red' : '1px solid black'};
@@ -15,9 +16,9 @@ const Img = styled.img`
     height: -webkit-fill-available;
   `;
 
-var Carousel = ({ image, displayImageId }) => {
+var Carousel = ({ image, displayImageId, onClick }) => {
   return (
-    <Box id={image.id} displayImageId={displayImageId}>
+    <Box onClick={onClick.bind(null, image)} id={image.id} displayImageId={displayImageId}>
       <Img src={image.image_url} />
     </Box>
   );

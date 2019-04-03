@@ -26,6 +26,7 @@ class App extends React.Component {
       smallImages: [],
       displayImage: ''
     };
+    this.changeImage = this.changeImage.bind(this);
   }
 
   componentDidMount() {
@@ -42,11 +43,17 @@ class App extends React.Component {
       });
   }
 
+  changeImage(image) {
+    this.setState( {
+      displayImage: image
+    });
+  }
+
   render() {
     return (
       <MainContainer>
         <DisplayImage image={this.state.displayImage}/>
-        <Carousel displayImageId = {this.state.displayImage.id} images={this.state.smallImages}/>
+        <Carousel onClick={this.changeImage} displayImageId = {this.state.displayImage.id} images={this.state.smallImages}/>
       </MainContainer>
     );
   }
