@@ -9,10 +9,10 @@ const Img = styled.img`
   width: 100%;
 `;
 
-var DisplayImage = () => {
+var DisplayImage = ({ image }) => {
   return (
     <Box>
-      <Img src='http://lorempixel.com/640/480/cats/'/>
+      <Img src={image.image_url}/>
     </Box>
   );
 };

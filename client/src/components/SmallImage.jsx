@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
+//
 
 const Box = styled.div`
     height: 32px;
     width: 32px;
-    border: 1px solid black;
+    border: ${({id, displayImageId }) => id.toString() === displayImageId.toString() ? '2px solid red' : '1px solid black'};
     padding: 5px;
     margin-left: 10px;
   `;
@@ -14,10 +15,10 @@ const Img = styled.img`
     height: -webkit-fill-available;
   `;
 
-var Carousel = () => {
+var Carousel = ({ image, displayImageId }) => {
   return (
-    <Box>
-      <Img src="http://lorempixel.com/640/480/cats/" />
+    <Box id={image.id} displayImageId={displayImageId}>
+      <Img src={image.image_url} />
     </Box>
   );
 };

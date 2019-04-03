@@ -8,13 +8,12 @@ var Div = styled.div`
   margin-left: 53px;
 `;
 
-var Carousel = () => {
+var Carousel = ({ images, displayImageId }) => {
   return (
     <Div>
-      <SmallImage />
-      <SmallImage />
-      <SmallImage />
-      <SmallImage />
+      {images.map((image, key) => {
+        return <SmallImage displayImageId={displayImageId} key={key} image = {image}/>;
+      })}
     </Div>
   );
 };
