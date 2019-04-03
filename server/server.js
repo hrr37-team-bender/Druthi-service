@@ -11,7 +11,7 @@ app.use(bodyParser());
 
 app.get('/images/:id', function (req, res) {
   db.query(`SELECT * FROM images where product_id=${req.params.id}`, (err, results) => {
-    if(err){
+    if (err) {
       throw err;
     }
     res.status(200).json(results);
@@ -20,4 +20,4 @@ app.get('/images/:id', function (req, res) {
 
 app.use(express.static(__dirname + '/../public'));
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
