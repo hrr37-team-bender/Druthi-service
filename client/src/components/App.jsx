@@ -32,7 +32,7 @@ class App extends React.Component {
   componentDidMount() {
     axios({
       method: 'get',
-      url: `${url[mode]}/images/1`,
+      url: `${url[mode]}/images/81420`,
       'content-type': 'application/json'
     })
       .then((response) => {
