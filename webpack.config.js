@@ -1,12 +1,12 @@
 const path = require('path');
 
 module.exports = {
-   entry: __dirname + '/client/src/index.jsx',
-   output: {
-      path: path.join(__dirname, '/public'),
-      filename: 'bundle.js'
-   },
-   module: {
+  entry: __dirname + '/client/src/index.jsx',
+  output: {
+    path: path.join(__dirname, '/public'),
+    filename: 'bundle.js'
+  },
+  module: {
     rules: [
       {
         test: [/\.jsx$/],
@@ -20,4 +20,4 @@ module.exports = {
       }
     ]
   },
-}
+};
