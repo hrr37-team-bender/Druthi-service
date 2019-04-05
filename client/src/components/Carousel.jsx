@@ -8,11 +8,11 @@ var Div = styled.div`
   margin-left: 53px;
 `;
 
-var Carousel = ({ images, displayImageId, onClick }) => {
+var Carousel = ({ images, displayImageId, onClick, mouseOverUpdate, changeImageBack }) => {
   return (
     <Div>
       {images.map((image, key) => {
-        return <SmallImage onClick={onClick} displayImageId={displayImageId} key={key} image = {image}/>;
+        return <SmallImage mouseOverUpdate={mouseOverUpdate} changeImageBack={changeImageBack} onClick={onClick} displayImageId={displayImageId} key={key} image = {image}/>;
       })}
     </Div>
   );

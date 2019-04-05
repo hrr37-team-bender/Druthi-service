@@ -24,9 +24,12 @@ class App extends React.Component {
     super(props);
     this.state = {
       smallImages: [],
-      displayImage: ''
+      displayImage: {},
+      selectedImage: {}
     };
     this.changeImage = this.changeImage.bind(this);
+    this.mouseOverUpdate = this.mouseOverUpdate.bind(this);
+    this.changeImageBack = this.changeImageBack.bind(this);
   }
 
   componentDidMount() {
@@ -38,14 +41,28 @@ class App extends React.Component {
       .then((response) => {
         this.setState({
           smallImages: response.data,
-          displayImage: response.data[0]
+          displayImage: response.data[0],
+          selectedImage: response.data[0]
         });
       });
   }
 
   changeImage(image) {
     this.setState( {
+      displayImage: image,
+      selectedImage: image
+    });
+  }
+
+  mouseOverUpdate(image) {
+    this.setState( {
       displayImage: image
+    });
+  }
+
+  changeImageBack() {
+    this.setState( {
+      displayImage: this.state.selectedImage
     });
   }
 
@@ -53,7 +70,7 @@ class App extends React.Component {
     return (
       <MainContainer>
         <DisplayImage image={this.state.displayImage}/>
-        <Carousel onClick={this.changeImage} displayImageId = {this.state.displayImage.id} images={this.state.smallImages}/>
+        <Carousel mouseOverUpdate={this.mouseOverUpdate} onClick={this.changeImage} displayImageId = {this.state.selectedImage.id} changeImageBack={this.changeImageBack} images={this.state.smallImages}/>
       </MainContainer>
     );
   }

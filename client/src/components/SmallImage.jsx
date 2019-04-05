@@ -16,9 +16,9 @@ const Img = styled.img`
     height: -webkit-fill-available;
   `;
 
-var SmallImage = ({ image, displayImageId, onClick }) => {
+var SmallImage = ({ image, displayImageId, onClick, mouseOverUpdate, changeImageBack }) => {
   return (
-    <Box className='small_image' onClick={onClick.bind(null, image)} id={image.id} displayImageId={displayImageId}>
+    <Box onMouseLeave={changeImageBack} onMouseOver={mouseOverUpdate.bind(null, image)}className='small_image' onClick={onClick.bind(null, image)} id={image.id} displayImageId={displayImageId}>
       <Img src={image.image_url} />
     </Box>
   );
