@@ -3,6 +3,9 @@ import Carousel from './Carousel.jsx';
 import DisplayImage from './DisplayImage.jsx';
 import styled from 'styled-components';
 import axios from 'axios';
+import _ from 'lodash';
+
+
 let mode = 'development';
 let url = {
   production: '',
@@ -23,6 +26,8 @@ class App extends React.Component {
     this.changeImage = this.changeImage.bind(this);
     this.mouseOverUpdate = this.mouseOverUpdate.bind(this);
     this.changeImageBack = this.changeImageBack.bind(this);
+    this.onClickLeft = this.onClickLeft.bind(this);
+    this.onClickRight = this.onClickRight.bind(this);
   }
 
   componentDidMount() {
@@ -59,10 +64,37 @@ class App extends React.Component {
     });
   }
 
+  onClickLeft() {
+    let { selectedImage, smallImages } = this.state;
+    let index = _.findIndex(smallImages, (img) => {
+      return img.id.toString() === selectedImage.id.toString();
+    });
+    if (index > 0) {
+      this.setState({
+        selectedImage: smallImages[ index - 1],
+        displayImage: smallImages[ index - 1]
+      });
+    }
+  }
+
+  onClickRight() {
+
+    let { selectedImage, smallImages } = this.state;
+    let index = _.findIndex(smallImages, (img) => {
+      return img.id.toString() === selectedImage.id.toString();
+    });
+    if (index !== smallImages.length - 1) {
+      this.setState({
+        selectedImage: smallImages[ index + 1],
+        displayImage: smallImages[ index + 1]
+      });
+    }
+  }
+
   render() {
     return (
       <MainContainer>
-        <DisplayImage image={this.state.displayImage}/>
+        <DisplayImage onClickLeft={this.onClickLeft} onClickRight={this.onClickRight} image={this.state.displayImage}/>
         <Carousel selectedImageId={this.state.selectedImage.id} mouseOverUpdate={this.mouseOverUpdate} onClick={this.changeImage} displayImageId = {this.state.displayImage.id} changeImageBack={this.changeImageBack} images={this.state.smallImages}/>
       </MainContainer>
     );

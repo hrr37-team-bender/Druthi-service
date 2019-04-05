@@ -17,15 +17,19 @@ const CarouselButtons = styled.div`
 `;
 const Button = styled.span`
   font-size:32px;
+  cursor:pointer;
+  color:#000000a8;
 `;
 const RightButton = styled(Button)`
   margin-left:26.4%;
+  &:hover { opacity:0.3 }
 `;
 const LeftButton = styled(Button)`
   margin-left:1%;
+  &:hover { opacity:0.3 }
 `;
 
-var DisplayImage = ({ image }) => {
+var DisplayImage = ({ image, onClickLeft, onClickRight }) => {
   return (
     <div>
       <Box>
@@ -34,8 +38,8 @@ var DisplayImage = ({ image }) => {
         </a>
       </Box>
       <CarouselButtons>
-        <LeftButton>&#10094;</LeftButton>
-        <RightButton>&#10095;</RightButton>
+        <LeftButton onClick={onClickLeft}>&#10094;</LeftButton>
+        <RightButton onClick={onClickRight}>&#10095;</RightButton>
       </CarouselButtons>
 
     </div>
