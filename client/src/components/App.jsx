@@ -70,7 +70,7 @@ class App extends React.Component {
     return (
       <MainContainer>
         <DisplayImage image={this.state.displayImage}/>
-        <Carousel mouseOverUpdate={this.mouseOverUpdate} onClick={this.changeImage} displayImageId = {this.state.selectedImage.id} changeImageBack={this.changeImageBack} images={this.state.smallImages}/>
+        <Carousel selectedImageId={this.state.selectedImage.id} mouseOverUpdate={this.mouseOverUpdate} onClick={this.changeImage} displayImageId = {this.state.displayImage.id} changeImageBack={this.changeImageBack} images={this.state.smallImages}/>
       </MainContainer>
     );
   }
