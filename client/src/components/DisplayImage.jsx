@@ -46,7 +46,7 @@ const ImagesHolder = styled.div`
   margin: 0;
   left: -${({indexes}) => indexes.currentIndex * 100}%;
   text-align: left;
-  animation: ${({indexes}) => animations(indexes)} 1s ;
+  animation: ${({indexes}) => animations(indexes)} ${({hover}) => hover ? 0 : 1 }s ;
   animation-delay:0s;
 `;
 const SliderImage = styled.img`
@@ -85,11 +85,11 @@ class DisplayImage extends React.Component {
   }
   render() {
     var { prevIndex, currentIndex } = this.state;
-    var { images, animationRun, image, onClickLeft, onClickRight } = this.props;
+    var { images, animationRun, hoverSmallImage, image, onClickLeft, onClickRight } = this.props;
     return (
       <div>
         <Box>
-          <ImagesHolder indexes = {{prevIndex, currentIndex}} state={animationRun} length={images.length}>
+          <ImagesHolder hover={hoverSmallImage} indexes = {{prevIndex, currentIndex}} state={animationRun} length={images.length}>
             {images.map((image, key) => {
               return <SliderImage key={key} src={image.image_url}></SliderImage>;
             })}
