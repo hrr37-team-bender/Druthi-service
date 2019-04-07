@@ -21,15 +21,13 @@ class App extends React.Component {
     this.state = {
       smallImages: [],
       displayImage: {},
-      selectedImage: {},
-      animationRun: false
+      selectedImage: {}
     };
     this.changeImage = this.changeImage.bind(this);
     this.mouseOverUpdate = this.mouseOverUpdate.bind(this);
     this.changeImageBack = this.changeImageBack.bind(this);
     this.onClickLeft = this.onClickLeft.bind(this);
     this.onClickRight = this.onClickRight.bind(this);
-    this.updateAnimationRun = this.updateAnimationRun.bind(this);
   }
 
   componentDidMount() {
@@ -79,14 +77,7 @@ class App extends React.Component {
     }
   }
 
-  updateAnimationRun () {
-    this.setState({
-      animationRun: !animationRun
-    });
-  }
-
   onClickRight() {
-
     let { selectedImage, smallImages } = this.state;
     let index = _.findIndex(smallImages, (img) => {
       return img.id.toString() === selectedImage.id.toString();
@@ -103,7 +94,7 @@ class App extends React.Component {
   render() {
     return (
       <MainContainer>
-        <DisplayImage updateAnimationRun={this.state.updateAnimationRun} animationRun={this.state.animationRun} images={this.state.smallImages} onClickLeft={this.onClickLeft} onClickRight={this.onClickRight} image={this.state.displayImage}/>
+        <DisplayImage animationRun={this.state.animationRun} images={this.state.smallImages} onClickLeft={this.onClickLeft} onClickRight={this.onClickRight} image={this.state.displayImage}/>
         <Carousel selectedImageId={this.state.selectedImage.id} mouseOverUpdate={this.mouseOverUpdate} onClick={this.changeImage} displayImageId = {this.state.displayImage.id} changeImageBack={this.changeImageBack} images={this.state.smallImages}/>
       </MainContainer>
     );

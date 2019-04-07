@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, {keyframes} from 'styled-components';
+import _ from 'lodash';
 
 const Box = styled.div`
   width: 400px;
@@ -21,7 +22,7 @@ const Button = styled.span`
   color:#000000a8;
 `;
 const RightButton = styled(Button)`
-  margin-left:26.4%;
+  margin-left:27.4%;
   &:hover { opacity:0.3 }
 `;
 const LeftButton = styled(Button)`
@@ -29,25 +30,23 @@ const LeftButton = styled(Button)`
   &:hover { opacity:0.3 }
 `;
 
-const animations = keyframes`
-  0% { left: 0%; }
-  20% { left: 0%; }
-  25% { left: -100%; }
-  45% { left: -100%; }
-  50% { left: -200%; }
-  70% { left: -200%; }
-  75% { left: -300%; }
-  95% { left: -300%; }
-  100% { left: -400%; }
+let animations = (indexes) => {
+  let from = -indexes.prevIndex * 100;
+  let to = -indexes.currentIndex * 100;
+  return keyframes`
+  from { left: ${from}%; }
+  to { left: ${to}%; }
 `;
+};
+
 const ImagesHolder = styled.div`
   width: ${({length}) => (length * 400)}px;
   height: 300px;
   position:relative;
   margin: 0;
-  left: 0;
+  left: -${({indexes}) => indexes.currentIndex * 100}%;
   text-align: left;
-  animation: ${(({state}) => state ? 'running' : 'paused')} ${animations} 10s ;
+  animation: ${({indexes}) => animations(indexes)} 1s ;
   animation-delay:0s;
 `;
 const SliderImage = styled.img`
@@ -58,28 +57,51 @@ const SliderImage = styled.img`
   width:400px;
 `;
 
-var DisplayImage = ({ images, updateAnimationRun, animationRun, image, onClickLeft, onClickRight }) => {
-  return (
-    <div>
-      <Box>
-        <ImagesHolder onAnimationEnd={updateAnimationRun} state={animationRun} length={images.length}>
-          {images.map((image, key) => {
-            return <SliderImage index={key} key={key} src={image.image_url}></SliderImage>;
-          })}
-        </ImagesHolder>
-      </Box>
-      {/* <Box>
-        <a href={image.image_url}>
-          <Img src={image.image_url}/>
-        </a>
-      </Box>*/}
-      <CarouselButtons>
-        <LeftButton onClick={onClickLeft}>&#10094;</LeftButton>
-        <RightButton onClick={onClickRight}>&#10095;</RightButton>
-      </CarouselButtons>
-
-    </div>
-  );
-};
+class DisplayImage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      prevIndex: 0,
+      currentIndex: 0
+    };
+  }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.image.id) {
+      let prevId = this.props.image.id.toString();
+      let nextId = nextProps.image.id.toString();
+      if (prevId !== nextId) {
+        let prevIndex = _.findIndex(this.props.images, (image) => {
+          return image.id.toString() === prevId;
+        });
+        let nextIndex = _.findIndex(nextProps.images, (image) => {
+          return image.id.toString() === nextId;
+        });
+        this.setState({
+          prevIndex,
+          currentIndex: nextIndex
+        });
+      }
+    }
+  }
+  render() {
+    var { prevIndex, currentIndex } = this.state;
+    var { images, animationRun, image, onClickLeft, onClickRight } = this.props;
+    return (
+      <div>
+        <Box>
+          <ImagesHolder indexes = {{prevIndex, currentIndex}} state={animationRun} length={images.length}>
+            {images.map((image, key) => {
+              return <SliderImage key={key} src={image.image_url}></SliderImage>;
+            })}
+          </ImagesHolder>
+        </Box>
+        <CarouselButtons>
+          <LeftButton onClick={onClickLeft}>&#10094;</LeftButton>
+          <RightButton onClick={onClickRight}>&#10095;</RightButton>
+        </CarouselButtons>
+      </div>
+    );
+  }
+}
 
 export default DisplayImage;
