@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 var Div = styled.div`
   display:flex;
-  margin-top: 14%;
+  margin-top: 3%;
   margin-left: 77px;
 `;
 
