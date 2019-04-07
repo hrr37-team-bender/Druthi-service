@@ -21,7 +21,8 @@ class App extends React.Component {
     this.state = {
       smallImages: [],
       displayImage: {},
-      selectedImage: {}
+      selectedImage: {},
+      hover: false
     };
     this.changeImage = this.changeImage.bind(this);
     this.mouseOverUpdate = this.mouseOverUpdate.bind(this);
@@ -54,13 +55,14 @@ class App extends React.Component {
 
   mouseOverUpdate(image) {
     this.setState( {
-      displayImage: image
+      displayImage: image,
+      hover: true
     });
   }
 
   changeImageBack() {
     this.setState( {
-      displayImage: this.state.selectedImage
+      displayImage: this.state.selectedImage,
     });
   }
 
@@ -72,13 +74,13 @@ class App extends React.Component {
     if (index > 0) {
       this.setState({
         selectedImage: smallImages[ index - 1],
-        displayImage: smallImages[ index - 1]
+        displayImage: smallImages[ index - 1],
+        hover: false
       });
     }
   }
 
   onClickRight() {
-
     let { selectedImage, smallImages } = this.state;
     let index = _.findIndex(smallImages, (img) => {
       return img.id.toString() === selectedImage.id.toString();
@@ -86,7 +88,9 @@ class App extends React.Component {
     if (index !== smallImages.length - 1) {
       this.setState({
         selectedImage: smallImages[ index + 1],
-        displayImage: smallImages[ index + 1]
+        displayImage: smallImages[ index + 1],
+        animationRun: true,
+        hover: false
       });
     }
   }
@@ -94,7 +98,7 @@ class App extends React.Component {
   render() {
     return (
       <MainContainer>
-        <DisplayImage onClickLeft={this.onClickLeft} onClickRight={this.onClickRight} image={this.state.displayImage}/>
+        <DisplayImage animationRun={this.state.animationRun} images={this.state.smallImages} onClickLeft={this.onClickLeft} onClickRight={this.onClickRight} image={this.state.displayImage} hoverSmallImage={this.state.hover}/>
         <Carousel selectedImageId={this.state.selectedImage.id} mouseOverUpdate={this.mouseOverUpdate} onClick={this.changeImage} displayImageId = {this.state.displayImage.id} changeImageBack={this.changeImageBack} images={this.state.smallImages}/>
       </MainContainer>
     );
