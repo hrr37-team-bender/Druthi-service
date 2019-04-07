@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, {keyframes} from 'styled-components';
 import _ from 'lodash';
+import ImageDots from './ImageDots.jsx';
 
 const Box = styled.div`
   width: 400px;
@@ -99,6 +100,7 @@ class DisplayImage extends React.Component {
           <LeftButton onClick={onClickLeft}>&#10094;</LeftButton>
           <RightButton onClick={onClickRight}>&#10095;</RightButton>
         </CarouselButtons>
+        <ImageDots displayImage={image} images={images}/>
       </div>
     );
   }
