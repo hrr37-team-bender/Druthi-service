@@ -3,32 +3,19 @@ import styled, {keyframes} from 'styled-components';
 import _ from 'lodash';
 import ImageDots from './ImageDots.jsx';
 
+const Container = styled.div`
+  max-width:-webkit-fill-available;
+`;
+const CarouselButtons = styled.div`
+  margin-top: -14%;
+`;
+
 const Box = styled.div`
   width: 400px;
   height: 300px;
   position:relative
   z-index:-1;
   overflow:hidden;
-`;
-const Img = styled.img`
-  width: 100%;
-  height: -webkit-fill-available;
-`;
-const CarouselButtons = styled.div`
-  margin-top: -14%;
-`;
-const Button = styled.span`
-  font-size:32px;
-  cursor:pointer;
-  color:#000000a8;
-`;
-const RightButton = styled(Button)`
-  margin-left:27.4%;
-  &:hover { opacity:0.3 }
-`;
-const LeftButton = styled(Button)`
-  margin-left:1%;
-  &:hover { opacity:0.3 }
 `;
 
 let animations = (indexes) => {
@@ -47,7 +34,7 @@ const ImagesHolder = styled.div`
   margin: 0;
   left: -${({indexes}) => indexes.currentIndex * 100}%;
   text-align: left;
-  animation: ${({indexes}) => animations(indexes)} ${({hover}) => hover ? 0 : 1 }s ;
+  animation: ${({indexes}) => animations(indexes)} ${({hover}) => hover ? 0 : 0.3 }s ;
   animation-delay:0s;
 `;
 const SliderImage = styled.img`
@@ -56,8 +43,27 @@ const SliderImage = styled.img`
   padding: 0px;
   height:300px;
   width:400px;
+  border-radius: 7px;
 `;
 
+const Button = styled.span`
+  font-size:32px;
+  cursor:pointer;
+  color:#000000a8;
+  opacity:0;
+  ${Container}:hover & {
+    opacity: 1;
+  }
+`;
+
+const RightButton = styled(Button)`
+  margin-left:27.4%;
+  &:hover { opacity:0.3 }
+`;
+const LeftButton = styled(Button)`
+  margin-left:1%;
+  &:hover { opacity:0.3 }
+`;
 class DisplayImage extends React.Component {
   constructor(props) {
     super(props);
@@ -88,7 +94,7 @@ class DisplayImage extends React.Component {
     var { prevIndex, currentIndex } = this.state;
     var { images, animationRun, hoverSmallImage, image, onClickLeft, onClickRight } = this.props;
     return (
-      <div>
+      <Container>
         <Box>
           <ImagesHolder hover={hoverSmallImage} indexes = {{prevIndex, currentIndex}} state={animationRun} length={images.length}>
             {images.map((image, key) => {
@@ -101,7 +107,7 @@ class DisplayImage extends React.Component {
           <RightButton onClick={onClickRight}>&#10095;</RightButton>
         </CarouselButtons>
         <ImageDots displayImage={image} images={images}/>
-      </div>
+      </Container>
     );
   }
 }

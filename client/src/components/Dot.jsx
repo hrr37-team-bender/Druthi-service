@@ -8,15 +8,13 @@ const Span = styled.span`
   background-color: ${({image, displayImage}) => image.id.toString() === displayImage.id.toString() ? 'white' : '#e7e1dd'};
   border-radius: 50%;
   display: inline-block;
-  margin-left: 8px;
+  margin-left: 10px;
 `;
 
 var Dots = ({image, displayImage}) => {
-  var equalId = image.id.toString() === displayImage.id.toString()?true:false;
-  console.log(equalId);
+  var equalId = image.id.toString() === displayImage.id.toString() ? true : false;
   return (
     <Span image={image} displayImage={displayImage}>
-
     </Span>
   );
 };
