@@ -32,12 +32,16 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    console.log(window.location.href);
+    let urlSplit = window.location.href.split('/');
+    let id = urlSplit[urlSplit.length - 2];
     axios({
       method: 'get',
-      url: `${url[mode]}/images/81420`,
+      url: `${url[mode]}/images/${id}`,
       'content-type': 'application/json'
     })
       .then((response) => {
+        console.log(response);
         this.setState({
           smallImages: response.data,
           displayImage: response.data[0],

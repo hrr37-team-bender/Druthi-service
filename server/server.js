@@ -4,10 +4,12 @@ const bodyParser = require('body-parser');
 const db = require('./db/db.js');
 const generateData = require('./db/dummy-data.js');
 const app = express();
+const cors = require('cors');
 const port = 3001;
 
 app.use(morgan());
 app.use(bodyParser());
+app.use(cors());
 
 app.get('/images/:id', function (req, res) {
   db.query(`SELECT * FROM images where product_id=${req.params.id}`, (err, results) => {
@@ -18,6 +20,6 @@ app.get('/images/:id', function (req, res) {
   });
 });
 
-app.use(express.static(__dirname + '/../public'));
+app.use('/products/:id', express.static(__dirname + '/../public'));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
