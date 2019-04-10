@@ -5,8 +5,8 @@ var fs = require('fs');
 var AWS = require('aws-sdk');
 // Set the region
 AWS.config.update({
-  accessKeyId: 'AKIAIQVE3IXHOLOREYQA',
-  secretAccessKey: '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'
+  accessKeyId: '',
+  secretAccessKey: ''
 });
 
 // Create S3 service object
