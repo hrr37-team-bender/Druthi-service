@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS deepfryd;
-CREATE DATABASE IF NOT EXISTS deepfryd;
+DROP DATABASE IF EXISTS imageCarousel;
+CREATE DATABASE IF NOT EXISTS imageCarousel;
 
-USE deepfryd;
+USE imageCarousel;
 
 
 CREATE TABLE IF NOT EXISTS images (
