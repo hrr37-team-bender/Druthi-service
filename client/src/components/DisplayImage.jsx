@@ -92,11 +92,11 @@ class DisplayImage extends React.Component {
   }
   render() {
     var { prevIndex, currentIndex } = this.state;
-    var { images, animationRun, hoverSmallImage, image, onClickLeft, onClickRight } = this.props;
+    var { images, hoverSmallImage, image, onClickLeft, onClickRight } = this.props;
     return (
       <Container>
         <Box>
-          <ImagesHolder hover={hoverSmallImage} indexes = {{prevIndex, currentIndex}} state={animationRun} length={images.length}>
+          <ImagesHolder hover={hoverSmallImage} indexes = {{prevIndex, currentIndex}} length={images.length}>
             {images.map((image, key) => {
               return <SliderImage key={key} src={image.image_url}></SliderImage>;
             })}

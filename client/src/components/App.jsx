@@ -32,7 +32,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log(window.location.href);
     let urlSplit = window.location.href.split('/');
     let id = urlSplit[urlSplit.length - 2];
     axios({
@@ -41,7 +40,6 @@ class App extends React.Component {
       'content-type': 'application/json'
     })
       .then((response) => {
-        console.log(response);
         this.setState({
           smallImages: response.data,
           displayImage: response.data[0],
@@ -102,7 +100,7 @@ class App extends React.Component {
   render() {
     return (
       <MainContainer>
-        <DisplayImage animationRun={this.state.animationRun} images={this.state.smallImages} onClickLeft={this.onClickLeft} onClickRight={this.onClickRight} image={this.state.displayImage} hoverSmallImage={this.state.hover}/>
+        <DisplayImage images={this.state.smallImages} onClickLeft={this.onClickLeft} onClickRight={this.onClickRight} image={this.state.displayImage} hoverSmallImage={this.state.hover}/>
         <Carousel selectedImageId={this.state.selectedImage.id} mouseOverUpdate={this.mouseOverUpdate} onClick={this.changeImage} displayImageId = {this.state.displayImage.id} changeImageBack={this.changeImageBack} images={this.state.smallImages}/>
       </MainContainer>
     );

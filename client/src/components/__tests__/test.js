@@ -16,25 +16,54 @@ describe('<App />', () => {
     expect((Wrapper).exists()).toBe(true);
   });
 });
-let image = { 'id': 21, 'image_url': 'http://lorempixel.com/640/480/cats'};
+let image = { 'id': 81420, 'image_url': 'http://lorempixel.com/640/480/cats'};
+let images = [{"id":81420,"image_url":"https://s3.ap-south-1.amazonaws.com/deepfryd/images/images (11).jpg"},{"id":81420,"image_url":"https://s3.ap-south-1.amazonaws.com/deepfryd/images/images (12).jpg"},{"id":81420,"image_url":"https://s3.ap-south-1.amazonaws.com/deepfryd/images/images (13).jpg"},{"id":81420,"image_url":"https://s3.ap-south-1.amazonaws.com/deepfryd/images/images (14).jpg"}];
+
+
 describe('Display image', () => {
   it('should display large image', () => {
-    const Wrapper = render(<DisplayImage image={image}/>);
-    expect(Wrapper.find('img').prop('src')).toEqual(image.image_url);
+    const Wrapper = render(<DisplayImage images={images} image={images[0]} hoverSmallImage={true}/>);
+    expect(Wrapper.find('img').prop('src')).toEqual(images[0].image_url);
   });
-  it('should display small images', () => {
-    let onClick = jest.fn();
-    const Wrapper = render(<SmallImage onClick={onClick} displayImageId={1} image={image}/>);
-    expect(Wrapper.find('img').prop('src')).toEqual(image.image_url);
+
+  const wrapper = shallow(<App />);
+  const instance = wrapper.instance();
+  it('should update the display image with the hovered image', () => {
+    wrapper.setState({
+      smallImages: images,
+      displayImage: images[0],
+      selectedImage: images[0]
+    });
+    expect(wrapper.state('hover')).toBe(false);
+    expect(wrapper.state('displayImage')).toBe(images[0]);
+    instance.mouseOverUpdate(images[1]);
+    expect(wrapper.state('hover')).toBe(true);
+    expect(wrapper.state('displayImage')).toBe(images[1]);
   });
-  // it('should update large image onClick of small image', () => {
-  //   let onClick = jest.fn();
-  //   let images = [{"id":1,"image_url":"https://catfriendly.com/wp-content/uploads/2018/08/AdobeStock_125402488.jpeg"},
-  //     {"id":1,"image_url":"https://s.abcnews.com/images/Lifestyle/cats-dogs4-gty-mem-171130_16x9_1600.jpg"}];
-  //   const Wrapper = render(<SmallImage onClick={onClick} displayImageId={1} image={image}/>);
-  //   console.log(Wrapper);
-  //   Wrapper.find('div').simulate('click');
-  //   expect(onClick).toHaveBeenCalled();
-  // });
+
+  it('should update the selected image onClick', () => {
+    wrapper.setState({
+      smallImages: images,
+      displayImage: images[0],
+      selectedImage: images[0]
+    });
+    expect(wrapper.state('selectedImage')).toBe(images[0]);
+    instance.changeImage(images[1]);
+    expect(wrapper.state('selectedImage')).toBe(images[1]);
+    expect(wrapper.state('displayImage')).toBe(images[1]);
+  });
+
+  it('should change display image to next image on clicking right button', () => {
+    wrapper.setState({
+      smallImages: images,
+      displayImage: images[0],
+      selectedImage: images[0]
+    });
+    expect(wrapper.state('selectedImage')).toBe(images[0]);
+    instance.onClickRight();
+    expect(wrapper.state('selectedImage')).toBe(images[1]);
+    expect(wrapper.state('displayImage')).toBe(images[1]);
+  });
+
 });
 
