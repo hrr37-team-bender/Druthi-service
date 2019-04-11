@@ -49,7 +49,7 @@ const SliderImage = styled.img`
 const Button = styled.span`
   font-size:32px;
   cursor:pointer;
-  color:#000000a8;
+  color:#000000a8;;
   opacity:0;
   ${Container}:hover & {
     opacity: 1;
