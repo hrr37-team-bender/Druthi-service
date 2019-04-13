@@ -5,7 +5,7 @@ import styled from 'styled-components';
 var Div = styled.div`
   display:flex;
   margin-top: 3%;
-  margin-left: 77px;
+  margin-left: 57px;
 `;
 
 var Carousel = ({ images, displayImageId, selectedImageId, onClick, mouseOverUpdate, changeImageBack }) => {
