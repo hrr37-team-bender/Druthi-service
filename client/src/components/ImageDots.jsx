@@ -4,8 +4,7 @@ import Dot from './Dot.jsx';
 
 
 const Div = styled.div`
-margin-top: 9%;
-margin-left: 12.5%;
+  margin-left: 38%;
 `;
 var ImageDots = ({images, displayImage}) => {
   return (

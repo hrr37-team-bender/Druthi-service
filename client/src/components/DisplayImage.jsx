@@ -5,16 +5,15 @@ import ImageDots from './ImageDots.jsx';
 
 const Container = styled.div`
   max-width:-webkit-fill-available;
-`;
-const CarouselButtons = styled.div`
-  margin-top: -14%;
+  display:flex;
+  flex-direction:column;
 `;
 
 const Box = styled.div`
-  width: 400px;
+  width: 310px;
   height: 300px;
   position:relative
-  z-index:-1;
+  z-index:0;
   overflow:hidden;
 `;
 
@@ -27,8 +26,12 @@ let animations = (indexes) => {
 `;
 };
 
+const ButtonImageContainer = styled.div`
+  display: flex;
+`;
+
 const ImagesHolder = styled.div`
-  width: ${({length}) => (length * 400)}px;
+  width: ${({length}) => (length * 310)}px;
   height: 300px;
   position:relative;
   margin: 0;
@@ -42,7 +45,7 @@ const SliderImage = styled.img`
   margin: 0px;
   padding: 0px;
   height:300px;
-  width:400px;
+  width:310px;
   border-radius: 7px;
 `;
 
@@ -57,12 +60,16 @@ const Button = styled.span`
 `;
 
 const RightButton = styled(Button)`
-  margin-left:27.4%;
+  // margin-left:27.4%;
   &:hover { opacity:0.3 }
+  // z-index:1;
+  margin-top: 36%;
 `;
 const LeftButton = styled(Button)`
-  margin-left:1%;
+  // margin-left:1%;
   &:hover { opacity:0.3 }
+  // z-index:1;
+  margin-top: 36%;
 `;
 class DisplayImage extends React.Component {
   constructor(props) {
@@ -95,17 +102,17 @@ class DisplayImage extends React.Component {
     var { images, hoverSmallImage, image, onClickLeft, onClickRight } = this.props;
     return (
       <Container>
-        <Box>
-          <ImagesHolder hover={hoverSmallImage} indexes = {{prevIndex, currentIndex}} length={images.length}>
-            {images.map((image, key) => {
-              return <SliderImage key={key} src={image.image_url}></SliderImage>;
-            })}
-          </ImagesHolder>
-        </Box>
-        <CarouselButtons>
+        <ButtonImageContainer>
           <LeftButton onClick={onClickLeft}>&#10094;</LeftButton>
+          <Box>
+            <ImagesHolder hover={hoverSmallImage} indexes = {{prevIndex, currentIndex}} length={images.length}>
+              {images.map((image, key) => {
+                return <SliderImage key={key} src={image.image_url}></SliderImage>;
+              })}
+            </ImagesHolder>
+          </Box>
           <RightButton onClick={onClickRight}>&#10095;</RightButton>
-        </CarouselButtons>
+        </ButtonImageContainer>
         <ImageDots displayImage={image} images={images}/>
       </Container>
     );
