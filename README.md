@@ -16,19 +16,12 @@ Product details page for a dynamic e-commerce website.
   - https://github.com/hrr37-team-bender/chagilguiab-faq-service
     Faq section that lists all information related to Frequently asked questions. 
 
-## Table of Contents
-
-1. [Usage](#Usage)
-1. [Requirements](#requirements)
-1. [Development](#development)
-
 
 ## Requirements
 
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 - Node 6.13.0
-
 
 
 ### Installing Dependencies
